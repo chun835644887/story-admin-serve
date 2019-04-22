@@ -1,5 +1,6 @@
 const log4js = require('log4js');
 log4js.configure({
+    replaceConsole: true,
     appenders: {
         console: {
             type: 'console'
@@ -8,11 +9,34 @@ log4js.configure({
             type: 'stdout'
         },
         error: {
-            type: 'dataFile',
+            type: 'dateFile',
             filename: 'logs/error/',
-            pattern: 'error-yyyy-MM-dd.log',
+            pattern: 'yyyy-MM-dd.log',
+            maxLogSize: 10458760,
+            alwaysIncludePattern: true
+        },
+        http: {
+            type: 'dateFile',
+            filename: 'logs/http/',
+            pattern: 'yyyy-MM-dd.log',
+            maxLogSize: 10458760,
+            alwaysIncludePattern: true
+        },
+        default: {
+            type: 'dateFile',
+            filename: 'logs/default/',
+            pattern: 'yyyy-MM-dd.log',
             maxLogSize: 10458760,
             alwaysIncludePattern: true
         }
+    },
+    categories: {
+        http: { appenders: ['stdout', 'console', 'http'], level: 'debug' },
+        error: { appenders: ['stdout', 'console', 'error'], level: 'error' },
+        default: { appenders: ['stdout', 'console', 'default'], level: 'info' },
     }
-})
+});
+
+exports.getLogger = (category) => {
+    return log4js.getLogger(category || 'default')
+}
