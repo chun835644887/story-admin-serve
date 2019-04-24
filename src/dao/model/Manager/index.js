@@ -1,47 +1,47 @@
 module.exports = (sequelize, DataType) => {
-    const Verifier = sequelize.define('Verifier', {
-        verId: {
+    const Manager = sequelize.define('Manager', {
+        manId: {
             type: DataType.STRING,
             allowNull: false,
             primaryKey: true,
-            COMMENT: '检验者id'
+            COMMENT: '管理员id'
         },
         name: {
             type: DataType.STRING,
             allowNull: false,
-            COMMENT: '检验者名'
+            COMMENT: '管理员名'
         },
         account: {
             type: DataType.STRING,
             allowNull: false,
             unique: true,
-            COMMENT: '检验者账号'
+            COMMENT: '管理员账号'
         },
         phone: {
             type: DataType.STRING,
             allowNull: false,
-            COMMENT: '检验者手机号码'
+            COMMENT: '管理员手机号码'
         },
         pwd: {
             type: DataType.STRING,
             allowNull: false,
-            COMMENT: '检验者账号密码'
+            COMMENT: '管理员账号密码'
         },
         email: {
             type: DataType.STRING,
             allowNull: true,
-            COMMENT: '检验者邮箱'
+            COMMENT: '管理员邮箱'
         },
         description: {
             type: DataType.STRING,
             allowNull: true,
-            COMMENT: '检验者描述'
+            COMMENT: '管理员描述'
         }
     },{
         timestamps: true,
-        tableName: 'verifier',
-        comment: '检验者'
+        tableName: 'manager',
+        comment: '管理员表'
     });
 
-    return Verifier;
+    return Manager;
 }

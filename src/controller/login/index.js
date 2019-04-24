@@ -8,9 +8,6 @@ const getCaptcha = async (ctx, next) => {
 
 const login = async (ctx, next) => {
     // console.log(ctx.request);
-    console.log(ctx.request);
-    console.log('+++++++++++++++11111');
-    console.log(ctx.session)
     ctx.session['account'] = ctx.request.body;
     let params = ctx.request.body;
     if(params.account && params.pwd){

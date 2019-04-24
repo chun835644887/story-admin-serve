@@ -6,4 +6,4 @@ module.exports = () => {
       const level = ctx.response.status < 400 ? 'info' : ctx.response.status >= 500 ? 'error' : 'warn';
       httpLogger.log(level, `${ctx.request.method} - ${ctx.response.status} - ${ctx.request.url} - ${Date.now() - start}ms`);
     };
-  };
+};
