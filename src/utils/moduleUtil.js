@@ -41,5 +41,6 @@ const getDirectoryModule = (path) => {
             properties: properties
         })
     });
+    return result;
 }
 exports.getDirectoryModule = getDirectoryModule;

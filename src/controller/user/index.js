@@ -1,4 +1,4 @@
-const Model = require('../../dao/model');
+const Model = require('../../dao');
 const sequelize = require('../../dao/sequelize');
 /**
  * 查询用户id

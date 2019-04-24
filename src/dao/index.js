@@ -1,11 +1,19 @@
 const Path = require('path');
 const sequelize = require('./sequelize');
 const ModuleUtil = require('../utils/moduleUtil');
-console.log(ModuleUtil);
-// exports.User = sequelize.import(Path.join(__dirname, './user'));
-let mod = ModuleUtil.getDirectoryModule(Path.join(__dirname, './model'));
-console.log(mod);
 
+// exports.User = sequelize.import(Path.join(__dirname, './user'));
+let modelModule = ModuleUtil.getDirectoryModule(Path.join(__dirname, './model'));
+modelModule.forEach((childModule) => {
+    let moduleName = '';
+    childModule.properties.forEach((pro) => {
+        if(pro && pro.indexOf('.') == -1){
+            moduleName += pro;
+        }
+    });
+    exports[moduleName] = sequelize.import(childModule.path);
+});
+console.log(exports);
 exports.syncModel = (force) => {
     if(force){
         sequelize.sync({force}).then(() => {
