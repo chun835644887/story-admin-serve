@@ -43,12 +43,12 @@ module.exports = (sequelize, DataType) => {
             defaultValue: '0',
             COMMENT: '书籍状态'
         },
-        authorName: {
+        cusName: {
             type: DataType.STRING,
             allowNull: false,
             COMMENT: '书籍作者'
         },
-        authorNameId: {
+        cusId: {
             type: DataType.STRING,
             allowNull: false,
             COMMENT: '书籍作者id'

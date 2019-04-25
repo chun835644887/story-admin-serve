@@ -15,7 +15,7 @@ module.exports = (sequelize, DataType) => {
         manId: {
             type: DataType.STRING,
             allowNull: false,
-            COMMENT: '章节标题'
+            COMMENT: '审核者id'
         },
         status: {
             type: DataType.STRING,

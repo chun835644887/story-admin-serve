@@ -1,17 +1,14 @@
 const crypto = require('crypto');
 const Config = require('../config');
-const decipher = crypto.createCipher(Config.crypto.encryptAlg, Config.crypto.encrtptPwd);
+const _decipher = crypto.createCipher(Config.crypto.encryptAlg, Config.crypto.encrtptPwd);
 const _cipher = crypto.createDecipher(Config.crypto.encryptAlg, Config.crypto.encrtptPwd);
 /**
  * 加密
  */
 module.exports.decipher = (str) => {
-    // if(typeof str !== 'string'){
-    //     return null;
-    // }
     let cipherStr = '';
-    decipher.update(str, Config.crypto.encode, Config.crypto.hex);
-    cipherStr += decipher.final(Config.crypto.hex);
+    _decipher.update(str, Config.crypto.encode, Config.crypto.hex);
+    cipherStr += _decipher.final(Config.crypto.hex);
     return cipherStr;
 }
 /**

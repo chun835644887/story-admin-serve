@@ -13,7 +13,6 @@ modelModule.forEach((childModule) => {
     });
     exports[moduleName] = sequelize.import(childModule.path);
 });
-console.log(exports);
 exports.syncModel = (force) => {
     if(force){
         sequelize.sync({force}).then(() => {

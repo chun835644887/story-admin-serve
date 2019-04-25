@@ -7,7 +7,7 @@ const Helmet = require('koa-helmet');
 const Session = require('./middleware/session');
 const httpLogger = require('./middleware/httpLogger');
 
-Model.syncModel({force: true});
+// Model.syncModel({force: true});
 const app = new Koa();
 app.keys = ['chun:0926'];
 app.use(Helmet());

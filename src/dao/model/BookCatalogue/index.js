@@ -6,7 +6,7 @@ module.exports = (sequelize, DataType) => {
             primaryKey: true,
             COMMENT: '书籍类型id'
         },
-        authorId: {
+        cusId: {
             type: DataType.STRING,
             allowNull: false,
             COMMENT: '书籍作者id'

@@ -12,7 +12,7 @@ module.exports = (sequelize, DataType) => {
             allowNull: false,
             COMMENT: '书籍id'
         },
-        customId: {
+        cusId: {
             type: DataType.STRING,
             allowNull: false,
             COMMENT: '用户id'

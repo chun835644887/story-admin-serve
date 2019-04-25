@@ -20,7 +20,7 @@ module.exports = (sequelize, DataType) => {
         },
         phone: {
             type: DataType.STRING,
-            allowNull: false,
+            allowNull: true,
             COMMENT: '手机号码'
         },
         pwd: {
@@ -33,6 +33,12 @@ module.exports = (sequelize, DataType) => {
             allowNull: true,
             COMMENT: '邮箱'
         },
+        roleType: {
+            type: DataType.STRING,
+            allowNull: false,
+            defaultValue: '0',
+            COMMENT: '角色类型'
+        },
         description: {
             type: DataType.STRING,
             allowNull: true,
@@ -41,7 +47,7 @@ module.exports = (sequelize, DataType) => {
     },{
         timestamps: true,
         tableName: 'custom',
-        comment: '书籍表'
+        comment: '用户表'
     });
 
     return Custom;
