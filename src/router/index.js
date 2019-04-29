@@ -1,34 +1,33 @@
+const Path = require('path');
 const Router = require('koa-router');
 const UserController = require('../controller/user');
 const LoginController = require('../controller/login');
+// 权限中间件
+const permission = require('../middleware/permission');
+// 路由参数验证
+const paramValidate = require('../middleware/paramValidate');
+const logger = require('../utils/log4js').getLogger('http');
+const moduleUtils = require('../utils/moduleUtil');
 exports.useRouter = (app) => {
     const router = new Router({
         prefix: '/api'
     });
-    router.get('/',async (ctx, next) => {
-        let promise = new Promise((resolve) => {
-            setTimeout(async () => {
-                ctx.body = 'Hello World!11111';
-                resolve(1);
-                console.log('success');
-            },2000);
-        });
-        await promise.then();
-        console.log('end');
-    });
-    router.post('/post',(ctx, next) => {
-        ctx.body = 'post';
-    });
-    router.get('/get',(ctx, next) => {
-        ctx.body = 'get';
-    });
-    LoginController.forEach((ctx) => {
+    LoginController.routers.forEach((ctx) => {
         let method = ctx.type || 'get';
-        router[method](ctx.url, ctx.handle);
+        router[method](ctx.url,
+            paramValidate(ctx.schema),
+            permission(),
+            ...(ctx.middleware||[]), 
+            ctx.handle);
     });
-    UserController.forEach((ctx) => {
+    UserController.routers.forEach((ctx) => {
         let method = ctx.type || 'get';
-        router[method](ctx.url, ctx.handle);
+        router[method](ctx.url, 
+            paramValidate(ctx.schema), 
+            permission(ctx), 
+            ...(ctx.middleware||[]), 
+            ctx.handle);
     });
     app.use(router.routes()).use(router.allowedMethods());
+    logger.info('路由挂载成功！');
 }

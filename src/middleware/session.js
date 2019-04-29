@@ -1,26 +1,24 @@
-const Session = require('koa-session2');
-const { Store } = require("koa-session2");
+const session = require('koa-session');
 const encrypt = require('../utils/crypto');
-class store extends Store{
-    constructor(){
-        super();
-    }
-    async get (sid, ctx){
-        return this[sid];
-    }
-    async set(session, { sid =  this.getID(24), maxAge = 1000000 } = {}, ctx){
-        return this[session.account] = session;
-    }
-    async destroy(sid, ctx){
-        this[sid] = null;
-    }
-}
+const store = {};
 
 module.exports = (app) => {
-    return Session({
+    return session({
         key: 'chun:0926',
         maxAge: 1000*60*60*24,
         httpOnly: true,
-        store: new store()
-    })
+        signed: true,
+        store: {
+            get: async (key, maxAge, { rolling }) => {
+              return store[key];
+            },
+            set: async (key, sess, maxAge, { rolling, changed }) => {
+                console.log(key, sess);
+                return store[key] = sess;
+            },
+            destroy: async (key) => {
+              return store[key] = null;
+            }
+          },
+    }, app)
 }

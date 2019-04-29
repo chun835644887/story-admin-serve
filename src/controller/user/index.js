@@ -4,10 +4,9 @@ const sequelize = require('../../dao/sequelize');
  * 查询用户id
  */
 const getUser = async (ctx, next) => {
-    let sql = `select * from users where accout`;
+    let sql = `select * from custom`;
     let connection = null;
     await sequelize.query(sql).then((result) => {
-        console.log(result);
         ctx.body = result;
     }).catch((error) => {
         console.log('error!')
@@ -17,7 +16,7 @@ const getUser = async (ctx, next) => {
  * 根据账号查询用户信息
  */
 const getUserByAccount = async (account) => {
-    Model.User.findOne({
+    Model.Custom.findOne({
         where: {accout: 'admin'}
     }).then((result) => {
         console.log(result);
@@ -28,7 +27,7 @@ const getUserByAccount = async (account) => {
  * 新建账号
  */
 const createUser = async ({}) => {
-    Model.User.create({
+    Model.Custom.create({
 
     });
 }
@@ -36,34 +35,28 @@ const createUser = async ({}) => {
  * 获取所有得账号
  */
 const getAllUser = async (ctx, next) => {
-    // let sql = `select * from users`;
-    // let connection = null;
-    // await sequelize.query(sql).then((result) => {
-    //     console.log(result);
-    //     console.log(result);
-    //     ctx.body = result;
-    // }).catch((error) => {
-    //     console.log('error!')
-    // });
-    await Model.User.findAll().then((result) => {
-        console.log(result);
+    console.log(ctx.session);
+    console.log('-----------------')
+    await Model.Custom.findAll().then((result) => {
         ctx.body = result;
     });
 }
-module.exports = [{
-    type: 'post',
-    url: '/hair/user/new',
-    handle: createUser
-},{
-    type: 'get',
-    url: '/hair/get/:account/user/byAccount',
-    handle: getUserByAccount
-},{
-    type: 'get',
-    url: '/hair/get/:id/user',
-    handle: getUser
-},{
-    type: 'get',
-    url: '/hair/get/user/all',
-    handle: getAllUser
-}];
+module.exports = {
+    routers: [{
+        type: 'post',
+        url: '/story/custom/new',
+        handle: createUser
+    },{
+        type: 'get',
+        url: '/story/custom/get/:account/custom/byAccount',
+        handle: getUserByAccount
+    },{
+        type: 'get',
+        url: '/story/custom/get/:id',
+        handle: getUser
+    },{
+        type: 'get',
+        url: '/story/custom/all',
+        handle: getAllUser
+    }]
+};

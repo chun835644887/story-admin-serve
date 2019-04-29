@@ -1,25 +1,20 @@
 const crypto = require('crypto');
 const Config = require('../config');
-const _decipher = crypto.createCipher(Config.crypto.encryptAlg, Config.crypto.encrtptPwd);
-const _cipher = crypto.createDecipher(Config.crypto.encryptAlg, Config.crypto.encrtptPwd);
-/**
- * 加密
- */
-module.exports.decipher = (str) => {
-    let cipherStr = '';
-    _decipher.update(str, Config.crypto.encode, Config.crypto.hex);
-    cipherStr += _decipher.final(Config.crypto.hex);
-    return cipherStr;
-}
+// const _decipher = crypto.createDecipher(Config.crypto.encryptAlg, Config.crypto.encrtptPwd);
+// const _cipher = crypto.createCipher(Config.crypto.encryptAlg, Config.crypto.encrtptPwd);
 /**
  * 解密
  */
-module.exports.cipher = (hexStr) => {
-    if(typeof str !== 'string'){
-        return null;
-    }
-    let decStr = '';
-    _cipher.update(hexStr, Config.crypto.hex, Config.crypto.encode);
-    decStr += _cipher.final(Config.crypto.encode);
-    return decStr;
+module.exports.decipher = (str) => {
+    const _decipher = crypto.createDecipher(Config.crypto.encryptAlg, Config.crypto.encrtptPwd);
+    _decipher.update(str, Config.crypto.hex, Config.crypto.encode);
+    return _decipher.final(Config.crypto.encode);
+}
+/**
+ * 加密
+ */
+module.exports.cipher = (str) => {
+    const _cipher = crypto.createCipher(Config.crypto.encryptAlg, Config.crypto.encrtptPwd);
+    _cipher.update(str, Config.crypto.encode, Config.crypto.hex);
+    return _cipher.final(Config.crypto.hex);
 }
