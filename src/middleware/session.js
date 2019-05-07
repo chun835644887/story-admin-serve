@@ -13,7 +13,8 @@ module.exports = (app) => {
               return store[key];
             },
             set: async (key, sess, maxAge, { rolling, changed }) => {
-                console.log(key, sess);
+                console.log(key);
+                console.log('-----------------');
                 return store[key] = sess;
             },
             destroy: async (key) => {

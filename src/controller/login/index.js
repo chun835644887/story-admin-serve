@@ -18,7 +18,6 @@ const login = async (ctx, next) => {
     // ctx.session[ctx.request.body.account] = uuidV1() + '_sessionId';
     let params = ctx.request.body;
     if(params.account && params.pwd){
-        let session = Object.assign(ctx.request.body);
         let promise = new Promise((resolve, reject) => {
             Model.Custom.findOne({
                 where: {
@@ -32,7 +31,7 @@ const login = async (ctx, next) => {
                 resolve({
                     success: true,
                     user: result,
-                    session: ctx.session
+                    session: ctx.session.user
                 });
             }).catch((error) => {
                 resolve({

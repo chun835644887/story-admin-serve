@@ -19,7 +19,7 @@ const getUserByAccount = async (account) => {
     Model.Custom.findOne({
         where: {accout: 'admin'}
     }).then((result) => {
-        console.log(result);
+        // console.log(result);
     });
 }
 
@@ -35,8 +35,7 @@ const createUser = async ({}) => {
  * 获取所有得账号
  */
 const getAllUser = async (ctx, next) => {
-    console.log(ctx.session);
-    console.log('-----------------')
+    // console.log(ctx.session);
     await Model.Custom.findAll().then((result) => {
         ctx.body = result;
     });
