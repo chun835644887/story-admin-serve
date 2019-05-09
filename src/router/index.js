@@ -12,6 +12,10 @@ exports.useRouter = (app) => {
     const router = new Router({
         prefix: '/api'
     });
+    router['get']('/login', (ctx) => {
+        console.log('进入重定向')
+        ctx.response.redirect('/login');
+    });
     LoginController.routers.forEach((ctx) => {
         let method = ctx.type || 'get';
         router[method](ctx.url,

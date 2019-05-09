@@ -25,17 +25,14 @@ app.use(koa2Cors({
     credentials: true,
 }));
 app.use(async (ctx, next) => {
-  console.log('请求路径：'+ctx.url);
   if(ctx.url !== '/api/story/login/captcha' && ctx.url !== '/api/story/custom/login'){
     let sess = ctx.session;
     if(sess.user){
       await next();
     }else{
-      console.log('重定向：')
-      ctx.redirect('http://localhost:8080/#/login');
+      ctx.status = 302;
     }
   }else{
-    // console.log(ctx.session.user);
     await next();
   }
 });
